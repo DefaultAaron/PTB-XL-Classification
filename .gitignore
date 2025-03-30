@@ -32,6 +32,9 @@ ENV/
 *.swp
 *.swo
 
+# macOS
+.DS_Store
+
 # Jupyter Notebook
 .ipynb_checkpoints
 
