@@ -66,5 +66,6 @@ coverage.xml
 
 # PTB-XL Dataset Files
 ptb_xl/records500/
+ptb_xl/records100/
 *.dat
 *.hea 
