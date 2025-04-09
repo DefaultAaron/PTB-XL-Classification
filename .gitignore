@@ -70,8 +70,9 @@ coverage.xml
 # PTB-XL Dataset Files - Only include .pkl files
 ptb_xl/*
 !ptb_xl/*.pkl
+!ptb_xl/*.npy
 ptb_xl/records500/
 ptb_xl/records100/
 *.dat
 *.hea
-*.npy 
+Papers/ 
