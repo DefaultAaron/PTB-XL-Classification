@@ -14,7 +14,7 @@ This project includes or derives from the PTB-XL dataset, which is a large publi
 In accordance with the CC BY 4.0 license requirements:
 - The data was obtained from the Physikalisch-Technische Bundesanstalt (PTB)
 - The original data is licensed under CC BY 4.0
-- No changes were made to the original data
+- Changes made to the original data: The wavelet data in folders records100 and records500 are not included due to file size limits. You can find this data in the original source.
 - This attribution does not imply endorsement from the original data provider
 
 ### Citation
