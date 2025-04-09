@@ -25,3 +25,21 @@ In accordance with the CC BY 4.0 license requirements:
 If you use this data in academic work, please cite the original paper:
 
 Wagner, P., Strodthoff, N., Bousseljot, R., Kreiseler, D., Lunze, F. I., Samek, W., & Schaeffter, T. (2020). PTB-XL, a large publicly available electrocardiography dataset. Scientific Data, 7(1), 1-15.
+
+## Project Structure
+project-root/
+├── data/
+│   ├── raw/                       # Original PTB-XL dataset subset
+│   ├── processed/                 # Generated data (not in repository)
+│   └── README.md                  # Data documentation
+├── models/                        # Trained models
+├── notebooks/                     # Jupyter notebooks for exploration and experiments
+├── src/                           # Source code package
+│   ├── data/                      # Data processing code
+│   ├── models/                    # Model definitions and training
+│   └── utils/                     # Utility functions
+├── results/                       # Figures and metrics from experiments
+├── LICENSE
+└── README.md
+
+The repository includes appropriate `.gitignore` configurations to prevent committing large data files and environment-specific files.
