@@ -68,13 +68,10 @@ coverage.xml
 .hypothesis/
 
 # PTB-XL Dataset Files - Only include .pkl files
-ptb_xl/*.txt
-ptb_xl/RECORDS
-ptb_xl/*.py
 !ptb_xl/*.pkl
-ptb_xl/*.npy
+*.npy
 ptb_xl/records500/
 ptb_xl/records100/
 *.dat
 *.hea
-Papers/ 
+Papers/
