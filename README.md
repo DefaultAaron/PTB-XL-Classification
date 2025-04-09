@@ -8,7 +8,7 @@ This repository is dual-licensed:
 2. The data components derived from PTB-XL are subject to the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/) as per the original dataset.
 
 ### Data Attribution
-This project includes or derives from the PTB-XL dataset, which is a large publicly available electrocardiography dataset developed by the Physikalisch-Technische Bundesanstalt (PTB). The original dataset is available at [https://physionet.org/content/ptb-xl/](https://physionet.org/content/ptb-xl/) and [https://github.com/openkiwi-org/ptb-xl](https://github.com/openkiwi-org/ptb-xl). 
+This project includes or derives from the PTB-XL dataset, which is a large publicly available electrocardiography dataset developed by the Physikalisch-Technische Bundesanstalt (PTB). The original dataset is available at [https://physionet.org/content/ptb-xl/](https://physionet.org/content/ptb-xl/). 
 
 #### Terms of Attribution
 In accordance with the CC BY 4.0 license requirements:
