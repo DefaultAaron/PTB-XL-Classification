@@ -27,6 +27,7 @@ If you use this data in academic work, please cite the original paper:
 Wagner, P., Strodthoff, N., Bousseljot, R., Kreiseler, D., Lunze, F. I., Samek, W., & Schaeffter, T. (2020). PTB-XL, a large publicly available electrocardiography dataset. Scientific Data, 7(1), 1-15.
 
 ## Project Structure
+```
 project-root/
 ├── data/
 │   ├── raw/                       # Original PTB-XL dataset subset
@@ -41,5 +42,6 @@ project-root/
 ├── results/                       # Figures and metrics from experiments
 ├── LICENSE
 └── README.md
+```
 
 The repository includes appropriate `.gitignore` configurations to prevent committing large data files and environment-specific files.
