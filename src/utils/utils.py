@@ -4,6 +4,7 @@ import random
 import pickle
 import sklearn
 import numpy as np
+from typing import Any
 from matplotlib.pyplot import savefig
 
 ROOT = os.getcwd()
@@ -44,8 +45,13 @@ def set_seed(seed: int = 42, determinism: bool = False) -> None:
     elif torch.mps.is_available():
         torch.mps.manual_seed(seed)
 
-def save_model(model, name: str) -> None:
-    # TODO Write documentation
+def save_model(model: Any, name: str) -> None:
+    """Save model with given name
+
+    Args:
+        model (Any): Model to save
+        name (str): Name of the file to save the model
+    """
     path = f"{MODEL_PATH}{name}.pkl"
     with open(path, 'wb') as f:
         pickle.dump(model, f)
