@@ -94,8 +94,10 @@ def split_labels(data: np.ndarray, df: pd.DataFrame):
     return data, df
 
 
-def remove_labels():
-    ... # TODO Remove labels
+def remove_labels(labels: pd.DataFrame):
+    # TODO Write documentation
+    labels.diagnostic = labels.diagnostic.apply(lambda x: ["ABNORMAL"] if len(x) == 2 else x)
+    return labels
 
 
 def main():
