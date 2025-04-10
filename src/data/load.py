@@ -67,16 +67,15 @@ def load_data(sampling_rate: Literal[100, 500], num_class: Literal[2, 5, 23, 44]
     return data, df[["strat_fold", "diagnostic"]]
 
 
-def split_labels(data: np.ndarray, df: pd.DataFrame):
-    # TODO Write documentation
-    """_summary_
+def split_labels(data: np.ndarray, df: pd.DataFrame) -> Tuple[np.ndarray, pd.DataFrame]:
+    """Split the multiple labels into single label by duplicate the corresponding records
 
     Args:
-        data (np.ndarray): _description_
-        df (pd.DataFrame): _description_
+        data (np.ndarray): ECG signal records
+        df (pd.DataFrame): Record labels and stratified fold number
 
     Returns:
-        _type_: _description_
+        Tuple[np.ndarray, pd.DataFrame]_: ECG signal records with single corresponding labels
     """
     new_data = []
     new_df = []
@@ -94,9 +93,19 @@ def split_labels(data: np.ndarray, df: pd.DataFrame):
     return data, df
 
 
-def remove_labels(labels: pd.DataFrame):
-    # TODO Write documentation
-    labels.diagnostic = labels.diagnostic.apply(lambda x: ["ABNORMAL"] if len(x) == 2 else x)
+def remove_labels(labels: pd.DataFrame) -> pd.DataFrame:
+    """Remove the Normal label if other label occurs
+
+    Args:
+        labels (pd.DataFrame): Data frame stores the labels
+
+    Returns:
+        pd.DataFrame: Normal labels removed while other label occurs
+    """
+    labels.diagnostic = labels.diagnostic.apply(lambda x: [label for label in x 
+                                                           if label != "NORM" and 
+                                                           label != "NORMAL"] 
+                                                if len(x) > 1 else x)
     return labels
 
 

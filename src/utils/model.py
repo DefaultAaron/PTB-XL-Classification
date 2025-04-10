@@ -1,6 +1,3 @@
-import sys
-sys.path.append(".")
-
 def train_model():
     ... # TODO Train model
 
