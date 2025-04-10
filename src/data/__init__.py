@@ -8,6 +8,7 @@ from src.data.load import (
     remove_labels
 )
 
+"""Data Preprocess functions"""
 from src.data.preprocess import (
     data_clean,
     label_encode,
@@ -15,5 +16,8 @@ from src.data.preprocess import (
     data_standardize,
     get_dataloader
 )
+
+"""Data preparation pipeline"""
+from src.data.pipeline import data_preparation
 
 __version__ = '0.1.0'
