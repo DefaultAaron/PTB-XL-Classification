@@ -1,7 +1,7 @@
 import random
 import numpy as np
 import pandas as pd
-from typing import Tuple
+from typing import Tuple, Any
 from torch.utils.data import TensorDataset, DataLoader
 from sklearn.preprocessing import StandardScaler, MultiLabelBinarizer, LabelEncoder
 
@@ -28,7 +28,7 @@ def data_clean(data: np.ndarray, df: pd.DataFrame) -> Tuple[np.ndarray, pd.DataF
     return data, df
     
 
-def label_encode(df: pd.DataFrame, is_single_label: bool) -> Tuple[pd.Series, np.ndarray]:
+def label_encode(df: pd.DataFrame, is_single_label: bool) -> Tuple[pd.Series, np.ndarray, Any]:
     """Encode the labels
 
     Args:
@@ -36,7 +36,7 @@ def label_encode(df: pd.DataFrame, is_single_label: bool) -> Tuple[pd.Series, np
         is_single_label (bool): If the input label is single
 
     Returns:
-        Tuple[pd.Series, np.ndarray]: Stratified fold index and encoded label
+        Tuple[pd.Series, np.ndarray, Any]: Stratified fold index, encoded label, and encoder model
     """
     if is_single_label:
         encoder = LabelEncoder()    
@@ -49,7 +49,7 @@ def label_encode(df: pd.DataFrame, is_single_label: bool) -> Tuple[pd.Series, np
         if np.all(row_sums == 1):
             y = np.argmax(y, axis=1)
             
-    return df.strat_fold, y
+    return df.strat_fold, y, encoder
 
 
 def data_split(data: np.ndarray, fold: pd.Series, y: np.ndarray) \
@@ -79,8 +79,24 @@ def data_split(data: np.ndarray, fold: pd.Series, y: np.ndarray) \
     return train_X, train_y, val_X, val_y, test_X, test_y
 
 
-def data_standardize():
-    ... # TODO Data standardize
+def data_standardize(train_X: np.ndarray, val_X: np.ndarray, test_X: np.ndarray) \
+    -> Tuple[np.ndarray, np.ndarray, np.ndarray, Any]:
+    """Standardize the records data base on scaler model fitted on the train records
+
+    Args:
+        train_X (np.ndarray): Train records to fit the model and standardized
+        val_X (np.ndarray): Validation records to be standardized
+        test_X (np.ndarray): Test records to be standardized
+
+    Returns:
+        Tuple[np.ndarray, np.ndarray, np.ndarray, Any]: Standardized train, validation, test records, 
+        and the fitted scaler model
+    """
+    scaler = StandardScaler()
+    train_X = scaler.fit_transform(train_X.reshape(train_X.shape[0], -1)).reshape(train_X.shape)
+    val_X = scaler.transform(val_X.reshape(val_X.shape[0], -1)).reshape(val_X.shape)
+    test_X = scaler.transform(test_X.reshape(test_X.shape[0], -1)).reshape(test_X.shape)
+    return train_X, val_X, test_X, scaler
 
 
 def get_dataloader():
