@@ -1,3 +1,4 @@
+import random
 import numpy as np
 import pandas as pd
 from typing import Tuple
@@ -27,7 +28,7 @@ def data_clean(data: np.ndarray, df: pd.DataFrame) -> Tuple[np.ndarray, pd.DataF
     return data, df
     
 
-def label_encode(df: pd.DataFrame, is_single_label: bool) -> Tuple[np.ndarray, np.ndarray]:
+def label_encode(df: pd.DataFrame, is_single_label: bool) -> Tuple[pd.Series, np.ndarray]:
     """Encode the labels
 
     Args:
@@ -35,7 +36,7 @@ def label_encode(df: pd.DataFrame, is_single_label: bool) -> Tuple[np.ndarray, n
         is_single_label (bool): If the input label is single
 
     Returns:
-        Tuple[np.ndarray, np.ndarray]: Stratified fold index and encoded label
+        Tuple[pd.Series, np.ndarray]: Stratified fold index and encoded label
     """
     if is_single_label:
         encoder = LabelEncoder()    
@@ -48,11 +49,34 @@ def label_encode(df: pd.DataFrame, is_single_label: bool) -> Tuple[np.ndarray, n
         if np.all(row_sums == 1):
             y = np.argmax(y, axis=1)
             
-    return df.strat_fold.values, y
+    return df.strat_fold, y
 
 
-def data_split():
-    ... # TODO Data split
+def data_split(data: np.ndarray, fold: pd.Series, y: np.ndarray) \
+    -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Split data into train, validation, test sets with provided stratified folds
+
+    Args:
+        data (np.ndarray): ECG signal records
+        fold (pd.Series): Stratified fold index
+        y (np.ndarray): Record labels
+
+    Returns:
+        Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]: 
+        Train data, train labels, validation data, validation labels, test data, test labels
+    """
+    lower = min(fold)
+    upper = max(fold)
+    val_fold = random.randint(lower, upper)
+    test_folds = random.sample([num for num in range(lower, upper + 1) if num != val_fold], 2)
+    train_folds = [num for num in range(lower, upper + 1) if num != val_fold and num not in test_folds]
+    train_indexes = np.where(fold.isin(train_folds))[0]
+    val_indexes = np.where(fold == val_fold)[0]
+    test_indexes = np.where(fold.isin(test_folds))[0]
+    train_X, train_y = data[train_indexes], y[train_indexes]
+    val_X, val_y = data[val_indexes], y[val_indexes]
+    test_X, test_y = data[test_indexes], y[test_indexes]
+    return train_X, train_y, val_X, val_y, test_X, test_y
 
 
 def data_standardize():
