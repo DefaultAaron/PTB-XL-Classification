@@ -1,3 +1,4 @@
+import torch
 import random
 import numpy as np
 import pandas as pd
@@ -99,8 +100,40 @@ def data_standardize(train_X: np.ndarray, val_X: np.ndarray, test_X: np.ndarray)
     return train_X, val_X, test_X, scaler
 
 
-def get_dataloader():
-    ... # TODO Get dataloader
+def get_dataloader(train_X: np.ndarray, train_y: np.ndarray, val_X: np.ndarray, val_y: np.ndarray, 
+                   test_X: np.ndarray, test_y: np.ndarray, batch_size: int = 256, seed: int = 42) \
+    -> Tuple[DataLoader, DataLoader, DataLoader]:
+    """Put records and labels into DataLoaders for training, validation, and testing
+
+    Args:
+        train_X (np.ndarray): Train records
+        train_y (np.ndarray): Train record labels
+        val_X (np.ndarray): Validation records
+        val_y (np.ndarray): Validation record labels
+        test_X (np.ndarray): Test records
+        test_y (np.ndarray): Test record labels
+        batch_size (int, optional): Batch size for training, validating, and testing. Defaults to 256.
+        seed (int, optional): Random seed for reproducibility. Defaults to 42.
+
+    Returns:
+        Tuple[DataLoader, DataLoader, DataLoader]: Train, validation, test DataLoaders
+    """
+    # Convert data and labels into torch tensors
+    train_X = torch.tensor(train_X.transpose(0, 2, 1), dtype=torch.float32)
+    train_y = torch.tensor(train_y, dtype=torch.float16)
+    val_X = torch.tensor(val_X.transpose(0, 2, 1), dtype=torch.float32)
+    val_y = torch.tensor(val_y, dtype=torch.float16)
+    test_X = torch.tensor(test_X.transpose(0, 2, 1), dtype=torch.float32)
+    test_y = torch.tensor(test_y, dtype=torch.float16)
+    
+    # Generate dataloaders
+    g = torch.Generator()
+    g.manual_seed(seed) # Set seed to ensure the reproducibility for train loader
+    train_loader = DataLoader(TensorDataset(train_X, train_y), batch_size=batch_size, shuffle=True, generator=g)
+    val_loader = DataLoader(TensorDataset(val_X, val_y), batch_size=batch_size, shuffle=False)
+    test_loader = DataLoader(TensorDataset(test_X, test_y), batch_size=batch_size, shuffle=False)
+    
+    return train_loader, val_loader, test_loader
 
 
 def main():
