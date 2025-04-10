@@ -67,8 +67,31 @@ def load_data(sampling_rate: Literal[100, 500], num_class: Literal[2, 5, 23, 44]
     return data, df[["strat_fold", "diagnostic"]]
 
 
-def split_labels():
-    ... # TODO Split labels
+def split_labels(data: np.ndarray, df: pd.DataFrame):
+    # TODO Write documentation
+    """_summary_
+
+    Args:
+        data (np.ndarray): _description_
+        df (pd.DataFrame): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    new_data = []
+    new_df = []
+    for i, (_, row) in enumerate(df.iterrows()):
+        labels = row['diagnostic']
+        signal = data[i]
+        for label in labels:
+            new_row = row.copy()
+            new_row['diagnostic'] = label
+            new_df.append(new_row)
+            new_data.append(signal)
+        
+    data = np.array(new_data)
+    df = pd.DataFrame(new_df)
+    return data, df
 
 
 def remove_labels():
