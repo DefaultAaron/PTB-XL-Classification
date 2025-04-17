@@ -11,7 +11,7 @@ ROOT = os.getcwd()
 while not os.path.isfile(f'{ROOT}/README.md'):
     ROOT = os.path.dirname(ROOT)
 ROOT += "/"
- 
+
 MODEL_PATH = ROOT + "models/"
 RAW_DATA_PATH = ROOT + "data/raw/"
 PROCESSED_DATA_PATH = ROOT + "data/processed/"

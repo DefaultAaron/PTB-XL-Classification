@@ -1,3 +1,11 @@
+def train_epoch():
+    ... # TODO Train epoch
+
+
+def val_epoch():
+    ... # TODO Validation epoch
+
+
 def train_model():
     ... # TODO Train model
 

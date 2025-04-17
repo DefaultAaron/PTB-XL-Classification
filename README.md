@@ -19,7 +19,6 @@ In accordance with the CC BY 4.0 license requirements:
 - The original data is licensed under CC BY 4.0
 - Modifications: This repository contains a subset of the original dataset. The wavelet data from the 'records100' and 'records500' folders has been omitted due to GitHub storage limitations. Please refer to the original source to access the complete dataset.
 - This attribution does not imply endorsement from the original data provider
-- This attribution does not imply endorsement from the original data provider
 
 ### Citation
 If you use this data in academic work, please cite the original paper:
