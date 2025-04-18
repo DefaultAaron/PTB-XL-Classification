@@ -13,9 +13,12 @@ from src.utils.utils import (
 
 """Model Utilities"""
 from src.utils.model import (
+    get_device,
     train_model,
     plot_training_history,
-    test_model
+    test_model,
+    get_report,
+    plot_confusion_matrix
 )
 
 __version__ = '0.1.0'

@@ -4,8 +4,11 @@ import random
 import pickle
 import sklearn
 import numpy as np
-from typing import Any
-from matplotlib.pyplot import savefig
+from numpy import ndarray
+from typing import Union
+from torch.nn import Module
+from matplotlib.figure import Figure
+from sklearn.base import BaseEstimator
 
 ROOT = os.getcwd()
 while not os.path.isfile(f'{ROOT}/README.md'):
@@ -45,11 +48,11 @@ def set_seed(seed: int = 42, determinism: bool = False) -> None:
     elif torch.mps.is_available():
         torch.mps.manual_seed(seed)
 
-def save_model(model: Any, name: str) -> None:
+def save_model(model: Union[BaseEstimator, Module], name: str) -> None:
     """Save model with given name
 
     Args:
-        model (Any): Model to save
+        model (Union[BaseEstimator, Module]): Model to save
         name (str): Name of the file to save the model
     """
     path = f"{MODEL_PATH}{name}.pkl"
@@ -58,14 +61,27 @@ def save_model(model: Any, name: str) -> None:
     print(f"Model saved to {path}")
 
 
-def save_figure(fig, name, **kwargs) -> None:
-    # TODO Write documentation
+def save_figure(fig: Figure, name: str, **kwargs) -> None:
+    """Save figure with given name
+
+    Args:
+        fig (Figure): Figure to save
+        name (str): Name of the file to save the figure
+    """
     path = f"{FIGURE_PATH}{name}.png"
     fig.savefig(path, **kwargs)
     print(f"Figure saved to {path}")
 
-def save_metrics():
-    ... # TODO Save metrics
+def save_metrics(metrics: ndarray, name: str) -> None:
+    """Save the confusion matrix
+
+    Args:
+        metrics (ndarray): Confusion matrix to save
+        name (str): Name of the file to save the metrics
+    """
+    path = f"{METRICS_PATH}{name}.npy"
+    np.save(path, metrics)
+    print(f"Metrics saved to {path}")
 
 
 def main():
@@ -74,6 +90,6 @@ def main():
     print(PROCESSED_DATA_PATH)
     print(FIGURE_PATH)
     print(METRICS_PATH)
-    
+
 if __name__ == "__main__":
     main()
